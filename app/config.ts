@@ -1,4 +1,4 @@
-const number = process.env.WHATSAPP_NUMBER?.trim();
+const number = process.env.WHATSAPP_NUMBER?.trim() ?? '5516992215034';
 const instagram = process.env.INSTAGRAM_URL?.trim();
 
 export const business = {
@@ -27,22 +27,22 @@ export function whatsapp(topic: ContactTopic = 'general') {
 
 export const services = [
   {
-    key: 'lavagem', name: 'Lavagem automotiva', alt: 'Luva de microfibra sobre carroceria com espuma',
+    key: 'lavagem', name: 'Lavagem automotiva', headline: 'Limpeza que valoriza cada detalhe.', alt: 'Luva de microfibra sobre carroceria com espuma',
     description: 'Serviços de limpeza externa e interna, com opções de manutenção, limpeza técnica e detalhamento.',
     options: ['Limpeza de manutenção', 'Limpeza técnica', 'Limpeza detalhada', 'Tratamento de motor a seco'],
   },
   {
-    key: 'higienizacao', name: 'Higienização', alt: 'Limpeza profissional de um banco automotivo preto',
+    key: 'higienizacao', name: 'Higienização', headline: 'Cuidado que começa por dentro.', alt: 'Limpeza profissional de um banco automotivo preto',
     description: 'Cuidados especializados para tecidos, bancos, revestimentos e superfícies internas do veículo.',
     options: ['Higienização interna', 'Higienização de tecidos', 'Tratamento de couro'],
   },
   {
-    key: 'polimento', name: 'Polimento', alt: 'Politriz sobre a pintura brilhante de um veículo',
+    key: 'polimento', name: 'Polimento', headline: 'O brilho em sua melhor forma.', alt: 'Politriz sobre a pintura brilhante de um veículo',
     description: 'Tratamentos de acabamento e correção de pintura para recuperar o brilho e valorizar a aparência do veículo.',
     options: ['Polimento comercial', 'Polimento técnico'],
   },
   {
-    key: 'vitrificacao', name: 'Vitrificação', alt: 'Aplicador de microfibra sobre pintura automotiva preta',
+    key: 'vitrificacao', name: 'Vitrificação', headline: 'Proteção com acabamento extraordinário.', alt: 'Aplicador de microfibra sobre pintura automotiva preta',
     description: 'Proteção cerâmica da pintura, com acabamento de alto brilho e opções de durabilidade conforme o produto aplicado.',
     options: [],
   },

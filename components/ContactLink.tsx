@@ -12,7 +12,7 @@ export function ContactLink({ children, topic, className = 'button button-red' }
   return (
     <a className={className} href={url ?? '#contato'} target={url ? '_blank' : undefined}
       rel={url ? 'noopener noreferrer' : undefined} data-magnetic>
-      {children}<ArrowUpRight size={16} aria-hidden="true" />
+      {url ? children : 'Ver disponibilidade de contato'}<ArrowUpRight size={16} aria-hidden="true" />
     </a>
   );
 }

@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { ArrowDown, ArrowUpRight, Bike, Camera, CarFront, MapPin, MessageCircle } from 'lucide-react';
 import { business, navigation, services, whatsapp } from '../app/config';
 import { ContactLink } from './ContactLink';
+import { ServiceExplorer } from './ServiceExplorer';
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return <p className="eyebrow">{children}</p>;
@@ -18,7 +19,7 @@ export function Hero() {
     <section id="inicio" className="hero" aria-labelledby="hero-title">
       <div className="hero-photo">
         <picture>
-          <source media="(max-width: 700px)" srcSet="/images/hero-mobile.webp" />
+          <source media="(max-width: 700px)" srcSet="/images/hero-mobile.webp" width="850" height="459" />
           {/* The picture source selects the dedicated mobile framing before download. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/hero.webp" alt="Porsche preto iluminado em vermelho em um estúdio, imagem ilustrativa"
@@ -27,23 +28,25 @@ export function Hero() {
       </div>
       <div className="wrap hero-inner">
         <div className="hero-copy">
-          <Eyebrow>Estética automotiva · Franca, SP</Eyebrow>
+          <Eyebrow>Estética e detalhamento automotivo</Eyebrow>
           <h1 id="hero-title">
-            <span className="hero-mask"><span>BRANQUINHO</span></span>
+            <span className="hero-mask"><span>BRANQUINHO </span></span>
             <span className="hero-mask studio-mask"><span>STUDIO</span></span>
           </h1>
-          <div className="hero-details">
+        </div>
+        <div className="hero-details">
+          <div>
             <p className="hero-tagline">Mais que estética.<br />Uma experiência de exclusividade.</p>
             <p className="hero-description">Detalhamento automotivo, cuidado e proteção para valorizar cada detalhe do seu veículo.</p>
-            <div className="hero-actions">
-              <ContactLink>Agendar atendimento</ContactLink>
-              <a className="button button-outline" href="#servicos" data-magnetic>Explorar serviços <ArrowDown size={16} aria-hidden="true" /></a>
-            </div>
+          </div>
+          <div className="hero-actions">
+            <ContactLink>Agendar atendimento</ContactLink>
+            <a className="button button-outline" href="#servicos" data-magnetic>Explorar serviços <ArrowDown size={16} aria-hidden="true" /></a>
           </div>
         </div>
       </div>
       <div className="wrap hero-foot">
-        <span><MapPin size={14} aria-hidden="true" /> Franca • São Paulo</span>
+        <span><MapPin size={14} aria-hidden="true" /> Franca — São Paulo</span>
         <span className="hero-caption">Imagem ilustrativa</span>
         <a href="#sobre" aria-label="Rolar para a apresentação"><ArrowDown size={17} aria-hidden="true" /></a>
       </div>
@@ -76,15 +79,15 @@ export function Services() {
           <div><Eyebrow>Serviços para carros</Eyebrow><h2>Cuidado em <em>cada detalhe.</em></h2></div>
           <p>Conheça nossos serviços de estética automotiva.</p>
         </div>
-        <div className="service-grid">
+        <div className="service-editorial">
           {services.map((service, index) => (
-            <article key={service.key} className="service-card" data-reveal>
-              <div className="service-photo photo">
+            <article key={service.key} className="service-row">
+              <div className="service-photo photo" data-reveal data-image={index % 2 === 0 ? 'left' : 'right'}>
                 <Photo file={service.key} alt={service.alt} />
-                <span className="service-index">0{index + 1}</span>
               </div>
-              <div className="service-copy">
-                <h3>{service.name}</h3>
+              <div className="service-copy" data-reveal>
+                <p className="service-index"><span>0{index + 1}</span> {service.name}</p>
+                <h3>{service.headline}</h3>
                 <p>{service.description}</p>
                 {service.options.length > 0 && <ul>{service.options.map((option) => <li key={option}>{option}</li>)}</ul>}
                 <ContactLink className="text-link" topic={service.key}>Consultar pelo WhatsApp</ContactLink>
@@ -92,6 +95,10 @@ export function Services() {
             </article>
           ))}
         </div>
+        <ServiceExplorer items={services.map((service) => ({
+          key: service.key, name: service.name, headline: service.headline,
+          alt: service.alt, description: service.description, contact: whatsapp(service.key),
+        }))} />
       </div>
     </section>
   );
@@ -102,7 +109,7 @@ export function MotorcycleServices() {
     <section className="section wrap motorcycle" aria-labelledby="moto-title">
       <div className="section-copy" data-reveal>
         <Eyebrow>Serviços para motos</Eyebrow>
-        <h2 id="moto-title">Sua moto também merece <em>esse cuidado.</em></h2>
+        <h2 id="moto-title">Duas rodas. <em>O mesmo cuidado.</em></h2>
         <ul className="motorcycle-list">
           {['Lavagem para motos', 'Limpeza detalhada para motos', 'Polimento para motos'].map((item) =>
             <li key={item}><Bike size={18} aria-hidden="true" />{item}</li>)}
@@ -123,35 +130,9 @@ export function VisualExperience() {
         <Photo file="experiencia" alt="Carro esportivo preto com lanternas vermelhas refletidas no piso"
           className="experience-image" sizes="(max-width: 700px) 92vw, 86vw" />
         <div className="experience-copy">
-          <h2 id="experiencia-title">O brilho está <em>nos detalhes.</em></h2>
-          <p>Limpeza, acabamento e proteção em uma experiência visual que valoriza cada superfície do seu veículo.</p>
+          <h2 id="experiencia-title">A excelência está <em>nos detalhes.</em></h2>
+          <p>Do cuidado com o interior ao acabamento da pintura, cada detalhe merece atenção.</p>
         </div>
-      </div>
-    </section>
-  );
-}
-
-const gallery = [
-  ['pintura', 'Pintura automotiva', 'Reflexo de luz vermelha na pintura preta'],
-  ['roda', 'Rodas', 'Roda esportiva preta com pinça de freio vermelha'],
-  ['interior', 'Interiores', 'Console e revestimento em couro preto'],
-  ['vitrificacao', 'Proteção de pintura', 'Aplicação de proteção sobre um capô preto'],
-  ['moto', 'Motocicletas', 'Acabamento de uma motocicleta esportiva'],
-] as const;
-
-export function Gallery() {
-  return (
-    <section id="resultados" className="section wrap">
-      <div className="section-head" data-reveal>
-        <div><Eyebrow>Resultados visuais</Eyebrow><h2>Detalhes que <em>inspiram.</em></h2></div>
-        <p>Imagens ilustrativas dos serviços.</p>
-      </div>
-      <div className="gallery">
-        {gallery.map(([file, caption, alt]) =>
-          <figure key={file} className="gallery-photo photo" data-reveal data-image>
-            <Photo file={file} alt={alt} sizes="(max-width: 700px) 48vw, 30vw" />
-            <figcaption>{caption}</figcaption>
-          </figure>)}
       </div>
     </section>
   );
@@ -162,12 +143,13 @@ export function ContactCTA() {
     <section id="contato" className="section contact">
       <div className="wrap" data-reveal>
         <Eyebrow>Atendimento</Eyebrow>
-        <h2>Seu veículo <em>merece mais.</em></h2>
-        <p>Entre em contato e consulte o serviço ideal para seu carro ou moto.</p>
-        {whatsapp()
-          ? <ContactLink>Solicitar atendimento pelo WhatsApp</ContactLink>
-          : <p className="contact-status"><MessageCircle size={17} aria-hidden="true" /> O número de WhatsApp será disponibilizado em breve.</p>}
-        <p className="contact-note">Valores e disponibilidade mediante consulta.</p>
+        <h2>Seu veículo merece <em>esse cuidado.</em></h2>
+        <p>Conheça os serviços do Branquinho Studio e consulte valores e disponibilidade de atendimento.</p>
+        {!whatsapp() && <p className="contact-status"><MessageCircle size={17} aria-hidden="true" /> Agendamento pelo WhatsApp indisponível até a confirmação do número oficial.</p>}
+        <div className="contact-actions">
+          {whatsapp() && <ContactLink>Agendar pelo WhatsApp</ContactLink>}
+          <a className="button button-outline" href="#servicos" data-magnetic>Ver serviços <ArrowUpRight size={16} aria-hidden="true" /></a>
+        </div>
       </div>
     </section>
   );

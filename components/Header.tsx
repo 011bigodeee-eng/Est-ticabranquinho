@@ -54,11 +54,11 @@ export function Header({ links, contact }: Props) {
             aria-current={active === id ? 'location' : undefined} onClick={() => setOpen(false)}>{label}</a>)}
           <a className="button button-outline mobile-book" href={contact ?? '#contato'}
             target={contact ? '_blank' : undefined} rel={contact ? 'noopener noreferrer' : undefined}
-            onClick={() => setOpen(false)}>Agendar atendimento <ArrowUpRight size={15} /></a>
+            onClick={() => setOpen(false)}>{contact ? 'Agendar atendimento' : 'Ver contato'} <ArrowUpRight size={15} /></a>
         </nav>
         <a className="button button-outline desktop-book" href={contact ?? '#contato'}
           target={contact ? '_blank' : undefined} rel={contact ? 'noopener noreferrer' : undefined}>
-          Agendar atendimento <ArrowUpRight size={15} aria-hidden="true" />
+          {contact ? 'Agendar atendimento' : 'Ver contato'} <ArrowUpRight size={15} aria-hidden="true" />
         </a>
       </div>
       <div className="scroll-progress" aria-hidden="true" />
