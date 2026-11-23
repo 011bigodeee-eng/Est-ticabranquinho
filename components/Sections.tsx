@@ -17,40 +17,19 @@ function Photo({ file, alt, className = '', sizes = '(max-width: 800px) 92vw, 45
 export function Hero() {
   return (
     <section id="inicio" className="hero" aria-labelledby="hero-title">
-      <div className="hero-photo">
-        <span className="hero-glow hero-glow-far" aria-hidden="true" />
-        <span className="hero-glow hero-glow-near" aria-hidden="true" />
-        <div className="hero-depth">
-          <picture>
-            <source media="(max-width: 800px)" srcSet="/images/hero-mobile.webp" width="850" height="459" />
-            <img src="/images/hero.webp" alt="Porsche preto iluminado em vermelho em um estúdio, imagem ilustrativa"
-              width="1536" height="1024" fetchPriority="high" />
-          </picture>
-        </div>
+      <h1 id="hero-title" className="sr-only">Branquinho Studio</h1>
+      <div className="hero-mobile-heading">
+        <Image src="/images/hero-referencia-titulo.webp" width={800} height={118} alt="" />
       </div>
-      <div className="wrap hero-inner">
-        <div className="hero-copy">
-          <Eyebrow>Estética e detalhamento automotivo</Eyebrow>
-          <h1 id="hero-title">
-            <span className="hero-mask"><span>BRANQUINHO </span></span>
-            <span className="hero-mask studio-mask"><span>STUDIO</span></span>
-          </h1>
-        </div>
-        <div className="hero-details">
-          <div className="hero-summary">
-            <p className="hero-tagline">Mais que estética.<br />Uma experiência de exclusividade.</p>
-            <p className="hero-description">Detalhamento automotivo, cuidado e proteção para valorizar cada detalhe do seu veículo.</p>
-          </div>
-          <div className="hero-actions">
-            <ContactLink>Agendar atendimento</ContactLink>
-            <a className="button button-outline" href="#servicos" data-magnetic>Explorar serviços <ArrowDown size={16} aria-hidden="true" /></a>
-          </div>
-        </div>
-      </div>
-      <div className="wrap hero-foot">
-        <span><MapPin size={14} aria-hidden="true" /> Franca — São Paulo</span>
-        <span className="hero-caption">Imagem ilustrativa</span>
-        <a href="#sobre" aria-label="Rolar para a apresentação"><ArrowDown size={17} aria-hidden="true" /></a>
+      <p className="hero-tagline">Mais que estética. Uma experiência de exclusividade.</p>
+      <picture className="hero-art">
+        <source media="(max-width: 800px)" srcSet="/images/hero-referencia-carro.webp" width="1000" height="415" />
+        <img src="/images/hero-referencia.webp" width="1585" height="886" fetchPriority="high"
+          alt="Porsche preto em um estúdio com iluminação vermelha e piso refletivo. Imagem ilustrativa." />
+      </picture>
+      <div className="hero-mobile-actions">
+        <ContactLink>Agendar atendimento</ContactLink>
+        <a className="button button-outline" href="#servicos">Ver serviços <ArrowDown size={16} aria-hidden="true" /></a>
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { CalendarDays, Menu, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 type Props = { links: readonly (readonly [string, string])[]; contact?: string };
@@ -44,7 +44,7 @@ export function Header({ links, contact }: Props) {
     <header className={`header ${scrolled || open ? 'header-solid' : ''}`}>
       <div className="header-inner">
         <a href="#inicio" aria-label="Branquinho Studio, início" onClick={() => setOpen(false)}>
-          <Image className="brand-logo" src="/images/logo.webp" width={124} height={64} alt="Branquinho Studio" priority />
+          <Image className="header-wordmark" src="/images/hero-referencia-marca.webp" width={298} height={52} alt="Branquinho Studio" priority />
         </a>
         <button ref={toggle} className="menu-toggle" type="button" aria-controls="navegacao"
           aria-expanded={open} aria-label={open ? 'Fechar menu' : 'Abrir menu'}
@@ -54,11 +54,11 @@ export function Header({ links, contact }: Props) {
             aria-current={active === id ? 'location' : undefined} onClick={() => setOpen(false)}>{label}</a>)}
           <a className="button button-outline mobile-book" href={contact ?? '#contato'}
             target={contact ? '_blank' : undefined} rel={contact ? 'noopener noreferrer' : undefined}
-            onClick={() => setOpen(false)}>{contact ? 'Agendar atendimento' : 'Ver contato'} <ArrowUpRight size={15} /></a>
+            onClick={() => setOpen(false)}><CalendarDays size={19} aria-hidden="true" /> {contact ? 'Agendar Atendimento' : 'Ver contato'}</a>
         </nav>
         <a className="button button-outline desktop-book" href={contact ?? '#contato'}
           target={contact ? '_blank' : undefined} rel={contact ? 'noopener noreferrer' : undefined}>
-          {contact ? 'Agendar atendimento' : 'Ver contato'} <ArrowUpRight size={15} aria-hidden="true" />
+          <CalendarDays size={19} aria-hidden="true" /> {contact ? 'Agendar Atendimento' : 'Ver contato'}
         </a>
       </div>
       <div className="scroll-progress" aria-hidden="true" />

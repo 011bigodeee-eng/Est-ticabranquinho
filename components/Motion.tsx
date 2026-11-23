@@ -47,10 +47,6 @@ export function Motion() {
       });
 
       media.add(desktop, () => {
-        const heroScroll = { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true };
-        gsap.to('.hero-photo img', { yPercent: 6, ease: 'none', scrollTrigger: heroScroll });
-        gsap.to('.hero-photo', { opacity: 0.64, ease: 'none', scrollTrigger: heroScroll });
-
         gsap.utils.toArray<HTMLElement>('.service-photo').forEach((frame) => {
           gsap.fromTo(frame.querySelector('.service-image'), { yPercent: -2 }, {
             yPercent: 2, ease: 'none',
@@ -92,25 +88,6 @@ export function Motion() {
           };
         }
 
-        const hero = document.querySelector<HTMLElement>('.hero')!;
-        const layers = [
-          [hero.querySelector('.hero-glow-far'), -22, -12],
-          [hero.querySelector('.hero-glow-near'), 28, 16],
-          [hero.querySelector('.hero-depth'), 10, 6],
-        ] as const;
-        const axes = layers.map(([layer, depthX, depthY]) => ({
-          layer, depthX, depthY,
-          x: gsap.quickTo(layer, 'x', { duration: 0.55, ease: 'power3.out' }),
-          y: gsap.quickTo(layer, 'y', { duration: 0.55, ease: 'power3.out' }),
-        }));
-        const moveHero = (x: number, y: number) => {
-          axes.forEach((axis) => {
-            axis.x((x * 2 - 1) * axis.depthX);
-            axis.y((y * 2 - 1) * axis.depthY);
-          });
-        };
-
-        const stopHero = track(hero, moveHero, () => moveHero(0.5, 0.5));
         const zones = gsap.utils.toArray<HTMLElement>('[data-pointer]').map((element) => {
           const stop = track(element, (x, y) => {
             element.style.setProperty('--pointer-x', `${x * 100}%`);
@@ -146,11 +123,6 @@ export function Motion() {
         });
 
         return () => {
-          stopHero();
-          axes.forEach(({ layer }) => {
-            gsap.killTweensOf(layer);
-            (layer as HTMLElement).style.removeProperty('transform');
-          });
           zones.forEach((stop) => stop());
           buttons.forEach((stop) => stop());
         };
