@@ -18,13 +18,13 @@ export function Hero() {
   return (
     <section id="inicio" className="hero" aria-labelledby="hero-title">
       <h1 id="hero-title" className="sr-only">Branquinho Studio</h1>
-      <div className="hero-mobile-heading">
+      <div className="hero-heading">
         <Image src="/images/hero-referencia-titulo.webp" width={800} height={118} alt="" />
       </div>
       <p className="hero-tagline">Mais que estética. Uma experiência de exclusividade.</p>
       <picture className="hero-art">
         <source media="(max-width: 800px)" srcSet="/images/hero-referencia-carro.webp" width="1000" height="415" />
-        <img src="/images/hero-referencia.webp" width="1585" height="886" fetchPriority="high"
+        <img src="/images/hero-referencia.webp" width="1585" height="658" fetchPriority="high"
           alt="Porsche preto em um estúdio com iluminação vermelha e piso refletivo. Imagem ilustrativa." />
       </picture>
       <div className="hero-mobile-actions">
