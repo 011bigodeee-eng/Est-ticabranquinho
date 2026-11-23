@@ -42,18 +42,28 @@ export function Gallery() {
         <p>Imagens ilustrativas dos serviços.</p>
       </div>
       <div className="gallery">
-        {gallery.map(([image, caption, description], index) => (
-          <button type="button" className="gallery-photo photo" key={image} data-reveal data-image
-            aria-label={`Ampliar: ${caption}`} aria-haspopup="dialog" onClick={(event) => {
-              trigger.current = event.currentTarget;
-              setSelected(index);
-              setOpen(true);
-              dialog.current?.showModal();
-            }}>
-            <Image fill src={`/images/${image}.webp`} alt={description}
-              sizes="(max-width: 700px) 90vw, 56vw" />
-            <span className="gallery-label">{caption}<Maximize2 size={16} aria-hidden="true" /></span>
-          </button>
+        {[[0, 1, 2], [3, 4, 5]].map((indices, column) => (
+          <div className="gallery-column" key={column} data-gallery-column={column}>
+            {indices.map((index, position) => {
+              const [image, caption, description] = gallery[index];
+              const interior = image === 'higienizacao';
+              return (
+                <button type="button" className="gallery-photo photo" key={image} data-reveal data-image
+                  data-stagger={position} data-pointer={interior ? '' : undefined}
+                  aria-label={`Ampliar: ${caption}`} aria-haspopup="dialog" onClick={(event) => {
+                    trigger.current = event.currentTarget;
+                    setSelected(index);
+                    setOpen(true);
+                    dialog.current?.showModal();
+                  }}>
+                  <Image fill src={`/images/${image}.webp`} alt={description}
+                    sizes="(max-width: 800px) 45vw, 55vw" />
+                  {interior && <span className="pointer-reveal pointer-interior" aria-hidden="true" />}
+                  <span className="gallery-label">{caption}<Maximize2 size={16} aria-hidden="true" /></span>
+                </button>
+              );
+            })}
+          </div>
         ))}
       </div>
       <dialog className="lightbox" ref={dialog} aria-label="Galeria de imagens ilustrativas"
@@ -65,7 +75,7 @@ export function Gallery() {
             <button type="button" aria-label="Fechar galeria" onClick={() => dialog.current?.close()}><X aria-hidden="true" /></button>
           </div>
           <div className="lightbox-photo photo">
-            {open && <Image fill src={`/images/${file}.webp`} alt={alt} sizes="(max-width: 700px) 95vw, 900px" />}
+            {open && <Image fill src={`/images/${file}.webp`} alt={alt} sizes="(max-width: 800px) 95vw, 900px" />}
           </div>
           <div className="lightbox-nav">
             <button type="button" aria-label="Imagem anterior" onClick={() => move(-1)}><ArrowLeft aria-hidden="true" /></button>

@@ -51,7 +51,7 @@ export function ServiceExplorer({ items }: { items: Service[] }) {
           aria-labelledby={`tab-${service.key}`} hidden={selected !== index}>
           {index === selected && <>
             <div className="explorer-photo photo">
-              <Image src={`/images/${item.key}.webp`} fill sizes="(max-width: 700px) 90vw, 44vw" alt={item.alt} />
+              <Image src={`/images/${item.key}.webp`} fill sizes="(max-width: 800px) 90vw, 44vw" alt={item.alt} />
             </div>
             <div className="explorer-copy">
               <h3>{item.headline}</h3>

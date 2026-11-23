@@ -8,7 +8,7 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
   return <p className="eyebrow">{children}</p>;
 }
 
-function Photo({ file, alt, className = '', sizes = '(max-width: 700px) 92vw, 45vw' }: {
+function Photo({ file, alt, className = '', sizes = '(max-width: 800px) 92vw, 45vw' }: {
   file: string; alt: string; className?: string; sizes?: string;
 }) {
   return <Image fill src={`/images/${file}.webp`} alt={alt} sizes={sizes} className={className} />;
@@ -18,13 +18,15 @@ export function Hero() {
   return (
     <section id="inicio" className="hero" aria-labelledby="hero-title">
       <div className="hero-photo">
-        <picture>
-          <source media="(max-width: 700px)" srcSet="/images/hero-mobile.webp" width="850" height="459" />
-          {/* The picture source selects the dedicated mobile framing before download. */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/hero.webp" alt="Porsche preto iluminado em vermelho em um estúdio, imagem ilustrativa"
-            width="1536" height="1024" fetchPriority="high" />
-        </picture>
+        <span className="hero-glow hero-glow-far" aria-hidden="true" />
+        <span className="hero-glow hero-glow-near" aria-hidden="true" />
+        <div className="hero-depth">
+          <picture>
+            <source media="(max-width: 800px)" srcSet="/images/hero-mobile.webp" width="850" height="459" />
+            <img src="/images/hero.webp" alt="Porsche preto iluminado em vermelho em um estúdio, imagem ilustrativa"
+              width="1536" height="1024" fetchPriority="high" />
+          </picture>
+        </div>
       </div>
       <div className="wrap hero-inner">
         <div className="hero-copy">
@@ -35,7 +37,7 @@ export function Hero() {
           </h1>
         </div>
         <div className="hero-details">
-          <div>
+          <div className="hero-summary">
             <p className="hero-tagline">Mais que estética.<br />Uma experiência de exclusividade.</p>
             <p className="hero-description">Detalhamento automotivo, cuidado e proteção para valorizar cada detalhe do seu veículo.</p>
           </div>
@@ -80,20 +82,29 @@ export function Services() {
           <p>Conheça nossos serviços de estética automotiva.</p>
         </div>
         <div className="service-editorial">
-          {services.map((service, index) => (
-            <article key={service.key} className="service-row">
-              <div className="service-photo photo" data-reveal data-image={index % 2 === 0 ? 'left' : 'right'}>
-                <Photo file={service.key} alt={service.alt} />
-              </div>
-              <div className="service-copy" data-reveal>
-                <p className="service-index"><span>0{index + 1}</span> {service.name}</p>
-                <h3>{service.headline}</h3>
-                <p>{service.description}</p>
-                {service.options.length > 0 && <ul>{service.options.map((option) => <li key={option}>{option}</li>)}</ul>}
-                <ContactLink className="text-link" topic={service.key}>Consultar pelo WhatsApp</ContactLink>
-              </div>
-            </article>
-          ))}
+          {services.map((service, index) => {
+            const liquid = service.key === 'vitrificacao';
+            const polish = service.key === 'polimento';
+            return (
+              <article key={service.key} className="service-row">
+                <div className={`service-photo photo${liquid ? ' liquid-photo' : ''}`} data-reveal
+                  data-image={index % 2 === 0 ? 'left' : 'right'} data-pointer={liquid || polish ? '' : undefined}>
+                  <Photo file={liquid ? 'vitrificacao-gotas' : service.key}
+                    alt={liquid ? 'Gotas de água sobre o acabamento brilhante de um capô preto, imagem ilustrativa' : service.alt}
+                    className="service-image" sizes="(max-width: 800px) 92vw, 52vw" />
+                  {liquid && <span className="liquid-sweep" aria-hidden="true" />}
+                  {polish && <span className="pointer-reveal pointer-paint" aria-hidden="true" />}
+                </div>
+                <div className="service-copy" data-reveal data-stagger={liquid ? 3 : undefined}>
+                  <p className="service-index"><span>0{index + 1}</span> {service.name}</p>
+                  <h3>{service.headline}</h3>
+                  <p>{service.description}</p>
+                  {service.options.length > 0 && <ul>{service.options.map((option) => <li key={option}>{option}</li>)}</ul>}
+                  <ContactLink className="text-link" topic={service.key}>Consultar pelo WhatsApp</ContactLink>
+                </div>
+              </article>
+            );
+          })}
         </div>
         <ServiceExplorer items={services.map((service) => ({
           key: service.key, name: service.name, headline: service.headline,
@@ -128,8 +139,8 @@ export function VisualExperience() {
     <section className="experience wrap" aria-labelledby="experiencia-title">
       <div className="experience-frame photo">
         <Photo file="experiencia" alt="Carro esportivo preto com lanternas vermelhas refletidas no piso"
-          className="experience-image" sizes="(max-width: 700px) 92vw, 86vw" />
-        <div className="experience-copy">
+          className="experience-image" sizes="(max-width: 800px) 92vw, 86vw" />
+        <div className="experience-copy" data-reveal>
           <h2 id="experiencia-title">A excelência está <em>nos detalhes.</em></h2>
           <p>Do cuidado com o interior ao acabamento da pintura, cada detalhe merece atenção.</p>
         </div>
