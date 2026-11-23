@@ -131,22 +131,35 @@ h2 em { font-style: normal; color: #b9b8b8; }
 }
 .service-copy .service-index { display: flex; align-items: center; gap: 12px; margin: 0 0 17px; font-size: 11px; letter-spacing: .11em; text-transform: uppercase; font-weight: 800; color: #ddd; }
 .service-index span { color: var(--accent); font-variant-numeric: tabular-nums; border-right: 1px solid #484040; padding-right: 12px; }
-.service-copy h3, .explorer h3 { font-size: clamp(30px, 4vw, 61px); line-height: .99; letter-spacing: -.065em; text-transform: uppercase; text-wrap: balance; }
-.service-copy p, .explorer p { margin: 15px 0; color: var(--muted); font-size: 14px; line-height: 1.65; }
+.service-copy h3 { font-size: clamp(30px, 4vw, 61px); line-height: .99; letter-spacing: -.065em; text-transform: uppercase; text-wrap: balance; }
+.service-copy p { margin: 15px 0; color: var(--muted); font-size: 14px; line-height: 1.65; }
 .service-copy ul { list-style: none; display: grid; gap: 0; padding: 0; margin: 16px 0 11px; font-size: 13px; color: #e0dede; }
 .service-copy li { padding: 8px 0; border-top: 1px solid #ffffff21; }
 .service-copy li::before { content: ""; display: inline-block; width: 8px; height: 1px; margin: 0 10px 4px 0; background: var(--accent); }
-.explorer { margin-top: clamp(60px, 10vw, 150px); padding: clamp(18px, 4vw, 56px); background: #111; border-top: 1px solid #492023; }
-.explorer h2 { font-size: clamp(32px, 5vw, 64px); }
-.explorer-tabs { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); margin: 25px 0 22px; border-bottom: 1px solid var(--line); }
-.explorer-tabs button { min-height: 49px; padding: 7px; color: #c4bfbf; cursor: pointer; border-bottom: 2px solid transparent; font-weight: 800; font-size: clamp(10px, 1.42vw, 14px); }
-.explorer-tabs button[aria-selected="true"] { border-color: var(--red); color: white; background: #ffffff09; }
-.explorer-tabs button:hover { color: white; }
-.explorer-panel:not([hidden]) { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); gap: clamp(18px, 4vw, 58px); align-items: center; }
-.explorer-photo { aspect-ratio: 2; animation: panel-reveal .33s ease-out both; }
-.explorer-copy { animation: copy-reveal .33s ease-out both; }
-.explorer h3 { font-size: clamp(24px, 3.4vw, 46px); }
-@keyframes panel-reveal { from { opacity: .3; clip-path: inset(0 3%); } to { opacity: 1; clip-path: inset(0); } }
+.explorer { margin-bottom: clamp(45px, 8vw, 108px); }
+.explorer-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.explorer-card { display: flex; flex-direction: column; min-width: 0; background: #141313; border: 1px solid #292525; }
+.explorer-link { display: block; flex: 1; }
+.explorer-photo { aspect-ratio: 1.62; }
+.explorer-photo img { transition: scale .4s; }
+.explorer-copy { padding: clamp(10px, 1.3vw, 19px); }
+.explorer-card-title { display: flex; justify-content: space-between; align-items: start; gap: 5px; }
+.explorer-card-title h3 { font-size: clamp(15px, 1.55vw, 24px); line-height: 1.1; font-weight: 700; letter-spacing: -.035em; }
+.explorer-card-title svg { flex: none; width: clamp(12px, 1.4vw, 17px); color: var(--accent); }
+.explorer-copy p { margin: 8px 0 0; color: var(--muted); font-size: clamp(12px, 1vw, 14px); line-height: 1.5; }
+.explorer-card .explorer-contact { align-self: stretch; justify-content: space-between; padding-inline: clamp(10px, 1.3vw, 19px); border-top: 1px solid #292525; }
+.explorer-contact:hover { background: #211718; }
+.service-row[id] { scroll-margin-top: 102px; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .explorer-link:hover img { scale: 1.04; }
+}
+@media (max-width: 1050px) {
+  .explorer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 440px) {
+  .explorer-grid { gap: 8px; }
+}
+
 .motorcycle { grid-template-columns: .85fr 1.15fr; }
 .moto-photo { aspect-ratio: 1.65; }
 .motorcycle-list { margin: 24px 0; padding: 0; list-style: none; }
@@ -241,7 +254,7 @@ html:has(.lightbox[open]) { overflow: hidden; }
   .about-photo { aspect-ratio: 1.55; }
   .section-head { display: block; margin-bottom: 25px; }
   .section-head > p { margin-top: 12px; }
-  .service-row:nth-child(n), .explorer-panel:not([hidden]) { grid-template-columns: minmax(0,1fr); gap: 16px; }
+  .service-row:nth-child(n) { grid-template-columns: minmax(0,1fr); gap: 16px; }
   .service-row:nth-child(even) .service-photo { order: 0; }
   .service-photo { aspect-ratio: 1.42; }
   .service-row:nth-child(n) .service-copy { padding: 0 18px 22px; }

@@ -77,16 +77,13 @@ export function Services() {
   return (
     <section id="servicos" className="section services">
       <div className="wrap">
-        <div className="section-head" data-reveal>
-          <div><Eyebrow>Serviços para carros</Eyebrow><h2>Cuidado em <em>cada detalhe.</em></h2></div>
-          <p>Conheça nossos serviços de estética automotiva.</p>
-        </div>
+        <ServiceExplorer />
         <div className="service-editorial">
           {services.map((service, index) => {
             const liquid = service.key === 'vitrificacao';
             const polish = service.key === 'polimento';
             return (
-              <article key={service.key} className="service-row">
+              <article key={service.key} className="service-row" id={`servico-${service.key}`}>
                 <div className={`service-photo photo${liquid ? ' liquid-photo' : ''}`} data-reveal
                   data-image={index % 2 === 0 ? 'left' : 'right'} data-pointer={liquid || polish ? '' : undefined}>
                   <Photo file={liquid ? 'vitrificacao-gotas' : service.key}
@@ -106,10 +103,6 @@ export function Services() {
             );
           })}
         </div>
-        <ServiceExplorer items={services.map((service) => ({
-          key: service.key, name: service.name, headline: service.headline,
-          alt: service.alt, description: service.description, contact: whatsapp(service.key),
-        }))} />
       </div>
     </section>
   );

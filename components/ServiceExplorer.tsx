@@ -1,69 +1,44 @@
-'use client';
-
 import Image from 'next/image';
-import { ArrowUpRight } from 'lucide-react';
-import { useRef, useState, type KeyboardEvent } from 'react';
+import { ArrowDown } from 'lucide-react';
+import { services } from '../app/config';
+import { ContactLink } from './ContactLink';
 
-type Service = {
-  key: string;
-  name: string;
-  headline: string;
-  alt: string;
-  description: string;
-  contact?: string;
+const summaries = {
+  lavagem: 'Limpeza externa e interna.',
+  higienizacao: 'Cuidado com tecidos, bancos e couro.',
+  polimento: 'Correção de pintura e recuperação do brilho.',
+  vitrificacao: 'Proteção cerâmica e acabamento de alto brilho.',
 };
 
-export function ServiceExplorer({ items }: { items: Service[] }) {
-  const [selected, setSelected] = useState(0);
-  const tabs = useRef<Array<HTMLButtonElement | null>>([]);
-  const item = items[selected];
-
-  function navigate(event: KeyboardEvent<HTMLButtonElement>, index: number) {
-    const last = items.length - 1;
-    const positions: Record<string, number> = {
-      ArrowLeft: index === 0 ? last : index - 1,
-      ArrowRight: index === last ? 0 : index + 1,
-      Home: 0,
-      End: last,
-    };
-    const next = positions[event.key];
-    if (next === undefined) return;
-    event.preventDefault();
-    setSelected(next);
-    tabs.current[next]?.focus();
-  }
-
+export function ServiceExplorer() {
   return (
     <section className="explorer" aria-labelledby="explorer-title">
-      <h2 id="explorer-title">Encontre o <em>cuidado ideal.</em></h2>
-      <div className="explorer-tabs" role="tablist" aria-label="Categorias de serviços">
-        {items.map((service, index) => (
-          <button key={service.key} ref={(element) => { tabs.current[index] = element; }}
-            type="button" id={`tab-${service.key}`} role="tab" aria-selected={selected === index}
-            aria-controls={`panel-${service.key}`} tabIndex={selected === index ? 0 : -1}
-            onClick={() => setSelected(index)} onKeyDown={(event) => navigate(event, index)}>
-            {service.key === 'lavagem' ? 'Lavagem' : service.name}
-          </button>
-        ))}
-      </div>
-      {items.map((service, index) => (
-        <div className="explorer-panel" key={service.key} id={`panel-${service.key}`} role="tabpanel"
-          aria-labelledby={`tab-${service.key}`} hidden={selected !== index}>
-          {index === selected && <>
-            <div className="explorer-photo photo">
-              <Image src={`/images/${item.key}.webp`} fill sizes="(max-width: 800px) 90vw, 44vw" alt={item.alt} />
-            </div>
-            <div className="explorer-copy">
-              <h3>{item.headline}</h3>
-              <p>{item.description}</p>
-              <a className="text-link" href={item.contact ?? '#contato'} target={item.contact ? '_blank' : undefined}
-                rel={item.contact ? 'noopener noreferrer' : undefined}>
-                {item.contact ? 'Consultar pelo WhatsApp' : 'Ver disponibilidade de contato'} <ArrowUpRight size={16} aria-hidden="true" />
-              </a>
-            </div>
-          </>}
+      <div className="section-head">
+        <div>
+          <p className="eyebrow">Serviços para carros</p>
+          <h2 id="explorer-title">Encontre o <em>cuidado ideal.</em></h2>
         </div>
-      ))}
+      </div>
+      <ul className="explorer-grid">
+        {services.map((service) => (
+          <li key={service.key} className="explorer-card">
+            <a className="explorer-link" href={`#servico-${service.key}`} aria-label={`Ver detalhes de ${service.name}`}>
+              <div className="explorer-photo photo">
+                <Image src={`/images/${service.key}.webp`} fill
+                  sizes="(max-width: 1050px) 46vw, (max-width: 1440px) 23vw, 310px" alt="" />
+              </div>
+              <div className="explorer-copy">
+                <div className="explorer-card-title">
+                  <h3>{service.name}</h3>
+                  <ArrowDown size={17} aria-hidden="true" />
+                </div>
+                <p>{summaries[service.key]}</p>
+              </div>
+            </a>
+            <ContactLink className="explorer-contact text-link" topic={service.key}>WhatsApp<span className="sr-only"> · {service.name}</span></ContactLink>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }
