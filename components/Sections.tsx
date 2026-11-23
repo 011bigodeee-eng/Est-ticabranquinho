@@ -17,16 +17,23 @@ function Photo({ file, alt, className = '', sizes = '(max-width: 800px) 92vw, 45
 export function Hero() {
   return (
     <section id="inicio" className="hero" aria-labelledby="hero-title">
-      <h1 id="hero-title" className="sr-only">Branquinho Studio</h1>
-      <div className="hero-heading">
-        <Image src="/images/hero-referencia-titulo.webp" width={800} height={118} alt="" />
-      </div>
-      <p className="hero-tagline">Mais que estética. Uma experiência de exclusividade.</p>
       <picture className="hero-art">
-        <source media="(max-width: 800px)" srcSet="/images/hero-referencia-carro.webp" width="1000" height="415" />
-        <img src="/images/hero-referencia.webp" width="1585" height="658" fetchPriority="high"
+        <source media="(max-aspect-ratio: 1/2)" srcSet="/images/hero-referencia-vertical.webp" />
+        <source media="(max-aspect-ratio: 5/4)" srcSet="/images/hero-referencia-carro.webp" />
+        <img src="/images/hero-referencia.webp" fetchPriority="high"
           alt="Porsche preto em um estúdio com iluminação vermelha e piso refletivo. Imagem ilustrativa." />
       </picture>
+      <div className="hero-content">
+        <h1 id="hero-title" className="hero-heading">
+          <span className="sr-only">Branquinho Studio</span>
+          <span className="hero-wordmark" aria-hidden="true">
+            <Image src="/images/hero-referencia-titulo.webp" width={878} height={70}
+              sizes="(max-width: 800px) 90vw, (max-width: 1568px) 56vw, 878px" alt="" loading="eager" />
+          </span>
+          <span className="hero-studio" aria-hidden="true">Studio</span>
+        </h1>
+        <p className="hero-tagline">Mais que estética. Uma experiência de exclusividade.</p>
+      </div>
       <div className="hero-mobile-actions">
         <ContactLink>Agendar atendimento</ContactLink>
         <a className="button button-outline" href="#servicos">Ver serviços <ArrowDown size={16} aria-hidden="true" /></a>
