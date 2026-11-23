@@ -1,14 +1,11 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { ChevronRight } from 'lucide-react';
 
 import { sessionKey } from '../app/cinematic';
 
 export function CinematicIntro() {
   const overlay = useRef<HTMLDivElement>(null);
-  const skip = useRef<HTMLButtonElement>(null);
-  const finish = useRef<() => void>(() => {});
 
   useEffect(() => {
     const root = document.documentElement;
@@ -21,12 +18,11 @@ export function CinematicIntro() {
     function close(returnFocus = false) {
       if (ended) return;
       ended = true;
-      const restore = returnFocus || document.activeElement === skip.current;
       try { sessionStorage.setItem(sessionKey, '1'); } catch {}
       delete root.dataset.cinematic;
       revert?.();
       unsubscribe();
-      if (restore) {
+      if (returnFocus) {
         document.getElementById('hero-title')?.focus({ preventScroll: true });
       }
     }
@@ -35,7 +31,7 @@ export function CinematicIntro() {
       if (event.key === 'Escape') close(true);
     };
     const onScroll = () => { if (window.scrollY > 4) close(); };
-    const onFocus = (event: FocusEvent) => { if (event.target !== skip.current) close(); };
+    const onFocus = () => close();
     const onPreference = () => { if (preference.matches) close(); };
     function unsubscribe() {
       window.removeEventListener('scroll', onScroll);
@@ -44,7 +40,6 @@ export function CinematicIntro() {
       preference.removeEventListener('change', onPreference);
     }
 
-    finish.current = () => close(true);
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('keydown', onEscape);
     document.addEventListener('focusin', onFocus);
@@ -113,9 +108,6 @@ export function CinematicIntro() {
       <div className="cinematic-veil" aria-hidden="true" />
       <div className="cinematic-light" aria-hidden="true" />
       <div className="cinematic-headlights" aria-hidden="true" />
-      <button className="cinematic-skip" type="button" ref={skip} onClick={() => finish.current()}>
-        Pular introdução <ChevronRight size={16} aria-hidden="true" />
-      </button>
     </div>
   );
 }
