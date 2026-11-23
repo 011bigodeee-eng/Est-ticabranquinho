@@ -1,3 +1,4 @@
+import { CinematicIntro } from '../components/CinematicIntro';
 import { Header } from '../components/Header';
 import { Motion } from '../components/Motion';
 import { Hero, About, Services, MotorcycleServices, VisualExperience, ContactCTA, Footer, WhatsAppButton } from '../components/Sections';
@@ -14,6 +15,7 @@ export default function Home() {
   };
   return (
     <>
+      <CinematicIntro />
       <a href="#conteudo" className="skip-link">Ir para o conteúdo</a>
       <Header links={navigation} contact={whatsapp()} />
       <main id="conteudo">

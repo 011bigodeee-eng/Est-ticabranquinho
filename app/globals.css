@@ -50,25 +50,35 @@ section[id], main[id] { scroll-margin-top: 84px; }
 .header .menu-toggle, .header .mobile-book { display: none; }
 .hero { position: relative; isolation: isolate; width: 100%; min-height: 100svh; overflow: hidden; background: #000; text-align: center; }
 .hero-art, .hero-art img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
-.hero-art { z-index: -2; animation: hero-scene-in .85s .06s both; }
+.hero-art { z-index: -2; }
 .hero-art img { object-fit: cover; object-position: center; }
-.hero::before { content: ""; position: absolute; z-index: -3; inset: 0; background: radial-gradient(ellipse at 1% 32%, #780713, transparent 37%), radial-gradient(ellipse at 98% 56%, #63040c, transparent 31%); animation: hero-light-in .7s both; }
+.hero::before { content: ""; position: absolute; z-index: -3; inset: 0; background: radial-gradient(ellipse at 1% 32%, #780713, transparent 37%), radial-gradient(ellipse at 98% 56%, #63040c, transparent 31%); }
 .hero::after { content: ""; position: absolute; z-index: -1; inset: 0; pointer-events: none; background: linear-gradient(180deg, #0005, transparent 30%, transparent 92%, #0005); }
 .hero-content { position: relative; padding: clamp(92px, 14.8svh, 170px) 16px 0; }
 .hero-heading { width: min(56vw, 878px); margin-inline: auto; }
 .hero-wordmark { display: block; overflow: hidden; mix-blend-mode: screen; }
-.hero-wordmark img { display: block; width: 100%; height: auto; animation: hero-wordmark-in .65s .28s both; }
-.hero-studio { display: flex; align-items: center; gap: clamp(12px, 2vw, 32px); margin: clamp(8px, 1svh, 13px) auto 0; color: #f21523; font-family: var(--heading); font-weight: 700; text-transform: uppercase; letter-spacing: .62em; font-size: clamp(19px, 2.4vw, 40px); line-height: 1; animation: hero-copy-in .5s .43s both; }
+.hero-wordmark img { display: block; width: 100%; height: auto; }
+.hero-studio { display: flex; align-items: center; gap: clamp(12px, 2vw, 32px); margin: clamp(8px, 1svh, 13px) auto 0; color: #f21523; font-family: var(--heading); font-weight: 700; text-transform: uppercase; letter-spacing: .62em; font-size: clamp(19px, 2.4vw, 40px); line-height: 1; }
 .hero-studio::before, .hero-studio::after { content: ""; flex: 1; height: clamp(1px, .25vw, 4px); background: linear-gradient(90deg, transparent, #e50914); }
 .hero-studio::after { background: linear-gradient(90deg, #e50914, transparent); margin-left: -.62em; }
-.hero-tagline { margin: clamp(9px, 1.6svh, 15px) auto 0; color: #f5f5f5; font-size: clamp(17px, 2.15vw, 34px); line-height: 1.25; font-style: italic; font-weight: 400; text-shadow: 0 2px 12px #000; animation: hero-copy-in .5s .56s both; }
+.hero-tagline { margin: clamp(9px, 1.6svh, 15px) auto 0; color: #f5f5f5; font-size: clamp(17px, 2.15vw, 34px); line-height: 1.25; font-style: italic; font-weight: 400; text-shadow: 0 2px 12px #000; }
 .hero-mobile-actions { display: none; }
-.header:not(.header-solid) .desktop-book { animation: hero-copy-in .42s .65s both; }
-.header .desktop-book:focus-visible, .hero-mobile-actions:focus-within { animation: none; }
-@keyframes hero-light-in { from { opacity: 0; } to { opacity: 1; } }
-@keyframes hero-scene-in { from { opacity: 0; } to { opacity: 1; } }
-@keyframes hero-wordmark-in { from { transform: translateY(100%); } to { transform: translateY(0); } }
-@keyframes hero-copy-in { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
+.cinematic-intro { display: none; }
+html[data-cinematic] .cinematic-intro { display: block; position: fixed; inset: 0; z-index: 15; overflow: hidden; pointer-events: none; }
+.cinematic-veil, .cinematic-light, .cinematic-headlights { position: absolute; inset: 0; }
+.cinematic-veil { background: #000; }
+.cinematic-light { opacity: 0; background: radial-gradient(ellipse 44% 1.8% at 50% 61%, #f01823b8, transparent 80%), radial-gradient(ellipse 30% 13% at 50% 61%, #ad001647, transparent 72%); }
+.cinematic-headlights { opacity: 0; background: radial-gradient(ellipse 8% 9% at 21% 59%, #fff8, transparent 75%), radial-gradient(ellipse 10% 12% at 63% 54%, #fff8, transparent 72%); mix-blend-mode: screen; }
+.cinematic-skip { position: absolute; top: max(17px, env(safe-area-inset-top)); right: max(18px, env(safe-area-inset-right)); display: inline-flex; align-items: center; gap: 5px; padding: 8px 12px; min-height: 44px; border: 1px solid #ffffff45; border-radius: 99px; background: #080808bb; color: #f5f5f5; font-size: 12px; font-weight: 700; cursor: pointer; pointer-events: auto; }
+.cinematic-skip:hover { color: #ff6670; border-color: currentColor; }
+html[data-cinematic="pending"] :is(.hero-wordmark, .hero-studio, .hero-tagline, .header, .hero-mobile-actions, .floating-wa) { opacity: 0; }
+@media (max-width: 800px) {
+  .cinematic-headlights { background: radial-gradient(ellipse 13% 7% at 20% 58%, #fff7, transparent 75%), radial-gradient(ellipse 13% 7% at 68% 57%, #fff7, transparent 75%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-cinematic] .cinematic-intro { display: none; }
+  html[data-cinematic="pending"] :is(.hero-wordmark, .hero-studio, .hero-tagline, .header, .hero-mobile-actions, .floating-wa) { opacity: 1; }
+}
 @media (max-aspect-ratio: 1/2) {
   .hero-art img { mask-image: linear-gradient(#000 67%, transparent 81%); }
 }
@@ -236,7 +246,7 @@ html:has(.lightbox[open]) { overflow: hidden; }
   .hero-studio::after { margin-left: -.45em; }
   .hero-tagline { max-width: 32ch; font-size: clamp(15px, 3.7vw, 24px); }
   .hero::after { background: linear-gradient(180deg, #0003, transparent 52%, transparent 75%, #0009 100%); }
-  .hero-mobile-actions { position: absolute; inset: auto 0 max(42px, 9svh); display: flex; flex-wrap: wrap; justify-content: center; gap: 9px; padding-inline: 12px; animation: hero-copy-in .45s .65s both; }
+  .hero-mobile-actions { position: absolute; inset: auto 0 max(42px, 9svh); display: flex; flex-wrap: wrap; justify-content: center; gap: 9px; padding-inline: 12px; }
   .hero-mobile-actions .button { padding-inline: 12px; }
   .hero-mobile-actions .button-red { border-radius: 99px; }
   .hero-mobile-actions .button-outline { border-radius: 99px; }

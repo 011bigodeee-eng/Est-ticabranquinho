@@ -24,11 +24,11 @@ export function Hero() {
           alt="Porsche preto em um estúdio com iluminação vermelha e piso refletivo. Imagem ilustrativa." />
       </picture>
       <div className="hero-content">
-        <h1 id="hero-title" className="hero-heading">
+        <h1 id="hero-title" className="hero-heading" tabIndex={-1}>
           <span className="sr-only">Branquinho Studio</span>
           <span className="hero-wordmark" aria-hidden="true">
             <Image src="/images/hero-referencia-titulo.webp" width={878} height={70}
-              sizes="(max-width: 800px) 90vw, (max-width: 1568px) 56vw, 878px" alt="" loading="eager" />
+              alt="" loading="eager" unoptimized />
           </span>
           <span className="hero-studio" aria-hidden="true">Studio</span>
         </h1>

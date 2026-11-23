@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
+import { cinematicBootstrap } from './cinematic';
 
 export const viewport: Viewport = { themeColor: '#050505', viewportFit: 'cover' };
 
@@ -10,5 +11,10 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="pt-BR"><body>{children}</body></html>;
+  return (
+    <html lang="pt-BR" suppressHydrationWarning>
+      <head><script dangerouslySetInnerHTML={{ __html: cinematicBootstrap }} /></head>
+      <body>{children}</body>
+    </html>
+  );
 }
