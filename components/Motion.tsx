@@ -40,10 +40,18 @@ export function Motion() {
           }
         });
 
+        const refreshCatalog = (event: Event) => {
+          if (event.target instanceof HTMLElement && event.target.matches('.service-option')) {
+            ScrollTrigger.refresh(true);
+          }
+        };
+        document.addEventListener('toggle', refreshCatalog, true);
+
         gsap.fromTo('.liquid-sweep', { xPercent: -150 }, {
           xPercent: 155, duration: 1.45, ease: 'sine.inOut',
           scrollTrigger: { trigger: '.liquid-photo', start: 'top 85%', once: true },
         });
+        return () => document.removeEventListener('toggle', refreshCatalog, true);
       });
 
       media.add(desktop, () => {

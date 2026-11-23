@@ -1,14 +1,14 @@
 import { ArrowUpRight } from 'lucide-react';
-import { whatsapp, type ContactTopic } from '../app/config';
+import { whatsapp } from '../app/config';
 
 type Props = {
   children: React.ReactNode;
-  topic?: ContactTopic;
+  service?: string;
   className?: string;
 };
 
-export function ContactLink({ children, topic, className = 'button button-red' }: Props) {
-  const url = whatsapp(topic);
+export function ContactLink({ children, service, className = 'button button-red' }: Props) {
+  const url = whatsapp(service);
   return (
     <a className={className} href={url ?? '#contato'} target={url ? '_blank' : undefined}
       rel={url ? 'noopener noreferrer' : undefined} data-magnetic>

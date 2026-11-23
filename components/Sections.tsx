@@ -1,6 +1,7 @@
 import Image from 'next/image';
-import { ArrowDown, ArrowUpRight, Bike, Camera, CarFront, MapPin, MessageCircle } from 'lucide-react';
-import { business, navigation, services, whatsapp } from '../app/config';
+import { ArrowDown, ArrowUpRight, Camera, ChevronDown, CarFront, MapPin, MessageCircle } from 'lucide-react';
+import { business, navigation, whatsapp } from '../app/config';
+import { catalog } from '../app/catalog';
 import { ContactLink } from './ContactLink';
 import { ServiceExplorer } from './ServiceExplorer';
 
@@ -65,49 +66,47 @@ export function Services() {
       <div className="wrap">
         <ServiceExplorer />
         <div className="service-editorial">
-          {services.map((service, index) => {
-            const liquid = service.key === 'vitrificacao';
-            const polish = service.key === 'polimento';
+          {catalog.map((category, index) => {
+            const liquid = category.key === 'vitrificacao';
+            const polish = category.key === 'polimento';
             return (
-              <article key={service.key} className="service-row" id={`servico-${service.key}`}>
+              <article key={category.key} className="service-row" id={`servico-${category.key}`}>
                 <div className={`service-photo photo${liquid ? ' liquid-photo' : ''}`} data-reveal
                   data-image={index % 2 === 0 ? 'left' : 'right'} data-pointer={liquid || polish ? '' : undefined}>
-                  <Photo file={liquid ? 'vitrificacao-gotas' : service.key}
-                    alt={liquid ? 'Gotas de água sobre o acabamento brilhante de um capô preto, imagem ilustrativa' : service.alt}
+                  <Photo file={category.image} alt={category.alt}
                     className="service-image" sizes="(max-width: 800px) 92vw, 52vw" />
                   {liquid && <span className="liquid-sweep" aria-hidden="true" />}
                   {polish && <span className="pointer-reveal pointer-paint" aria-hidden="true" />}
                 </div>
                 <div className="service-copy" data-reveal data-stagger={liquid ? 3 : undefined}>
-                  <p className="service-index"><span>0{index + 1}</span> {service.name}</p>
-                  <h3>{service.headline}</h3>
-                  <p>{service.description}</p>
-                  {service.options.length > 0 && <ul>{service.options.map((option) => <li key={option}>{option}</li>)}</ul>}
-                  <ContactLink className="text-link" topic={service.key}>Consultar pelo WhatsApp</ContactLink>
+                  <p className="service-index"><span>0{index + 1}</span> {category.key === 'motos' ? 'Motos' : 'Carros'}</p>
+                  <h3>{category.title}</h3>
+                  <p>{category.summary}</p>
+                  <div className="service-options">
+                    {category.services.map((service) => (
+                      <details className="service-option" key={service.name}>
+                        <summary>{service.name}<ChevronDown size={17} aria-hidden="true" /></summary>
+                        <div className="service-option-content">
+                          {service.description && <p>{service.description}</p>}
+                          {service.groups.map((group) => (
+                            <div key={group.title} className="service-procedures">
+                              <h4>{group.title}</h4>
+                              <ul>{group.items.map((item) => <li key={item}>{item}</li>)}</ul>
+                            </div>
+                          ))}
+                          {service.note && <p className="service-note">{service.note}</p>}
+                          <ContactLink className="text-link" service={service.name}>
+                            Consultar pelo WhatsApp<span className="sr-only"> · {service.name}</span>
+                          </ContactLink>
+                        </div>
+                      </details>
+                    ))}
+                  </div>
                 </div>
               </article>
             );
           })}
         </div>
-      </div>
-    </section>
-  );
-}
-
-export function MotorcycleServices() {
-  return (
-    <section className="section wrap motorcycle" aria-labelledby="moto-title">
-      <div className="section-copy" data-reveal>
-        <Eyebrow>Serviços para motos</Eyebrow>
-        <h2 id="moto-title">Duas rodas. <em>O mesmo cuidado.</em></h2>
-        <ul className="motorcycle-list">
-          {['Lavagem para motos', 'Limpeza detalhada para motos', 'Polimento para motos'].map((item) =>
-            <li key={item}><Bike size={18} aria-hidden="true" />{item}</li>)}
-        </ul>
-        <ContactLink topic="motos">Consultar serviços para motos</ContactLink>
-      </div>
-      <div className="moto-photo photo" data-reveal data-image>
-        <Photo file="moto" alt="Motocicleta esportiva preta em um estúdio com luz vermelha" />
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
 import { CinematicIntro } from '../components/CinematicIntro';
 import { Header } from '../components/Header';
 import { Motion } from '../components/Motion';
-import { Hero, About, Services, MotorcycleServices, VisualExperience, ContactCTA, Footer, WhatsAppButton } from '../components/Sections';
+import { Hero, About, Services, VisualExperience, ContactCTA, Footer, WhatsAppButton } from '../components/Sections';
 import { Gallery } from '../components/Gallery';
 import { business, navigation, whatsapp } from './config';
 
@@ -22,7 +22,6 @@ export default function Home() {
         <Hero />
         <About />
         <Services />
-        <MotorcycleServices />
         <VisualExperience />
         <Gallery />
         <ContactCTA />
