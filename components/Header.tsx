@@ -44,7 +44,7 @@ export function Header({ links, contact }: Props) {
     <header className={`header ${scrolled || open ? 'header-solid' : ''}`}>
       <div className="header-inner">
         <a href="#inicio" aria-label="Branquinho Studio, início" onClick={() => setOpen(false)}>
-          <Image className="header-wordmark" src="/images/hero-referencia-marca.webp" width={298} height={52} alt="Branquinho Studio" priority />
+          <Image className="header-wordmark" src="/images/branquinho-wordmark.svg" width={878} height={112} alt="Branquinho Studio" priority />
         </a>
         <button ref={toggle} className="menu-toggle" type="button" aria-controls="navegacao"
           aria-expanded={open} aria-label={open ? 'Fechar menu' : 'Abrir menu'}
