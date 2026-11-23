@@ -1,5 +1,5 @@
 const number = process.env.WHATSAPP_NUMBER?.trim() ?? '5516992215034';
-const instagram = process.env.INSTAGRAM_URL?.trim();
+const instagram = process.env.INSTAGRAM_URL?.trim() || 'https://www.instagram.com/branquinhostudio/';
 
 export const business = {
   name: 'Branquinho Studio',

@@ -15,7 +15,7 @@ A página abre na porta 3000. Use `npm run typecheck` para verificar o TypeScrip
 
 ## Contatos
 
-Copie `.env.example` para `.env.local`. O número oficial informado já está configurado. Use `WHATSAPP_NUMBER` para substituí-lo, incluindo código do país e DDD, apenas dígitos. Preencha `INSTAGRAM_URL` com a URL oficial, se houver. Reinicie o servidor de desenvolvimento após alterações. Em produção, defina as variáveis antes de gerar o build.
+Copie `.env.example` para `.env.local`. O número oficial informado já está configurado. Use `WHATSAPP_NUMBER` para substituí-lo, incluindo código do país e DDD, apenas dígitos. O perfil `@branquinhostudio` já está configurado. Use `INSTAGRAM_URL` para substituí-lo. Reinicie o servidor de desenvolvimento após alterações. Em produção, defina as variáveis antes de gerar o build.
 
 Cada botão de consulta abre o WhatsApp com a mensagem correspondente. O botão flutuante aparece em telas pequenas. Se a variável for definida com um valor inválido, os links levam à seção que informa a indisponibilidade do agendamento.
 
